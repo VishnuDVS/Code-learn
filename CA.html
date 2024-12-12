@@ -1,0 +1,805 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+    <title>Daily Current Affairs 03.12.24</title>
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        #user-name {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 18px;
+        }
+
+        .timer {
+            position: absolute;
+            top: 15px;
+            right: 50px;
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Instructions Section */
+        .instructions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px);
+            text-align: center;
+        }
+
+        .instruction-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .instruction-box ul {
+            list-style-type: disc;
+            margin: 20px 0;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .start-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .start-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .question-container {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .navigation-pane {
+            width: 200px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nav-buttons button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-buttons button.violet { background-color: #8A2BE2; color: white; }
+        .nav-buttons button.maroon { background-color: #800000; color: white; }
+        .nav-buttons button.blue { background-color: #1E90FF; color: white; }
+        .nav-buttons button.grey { background-color: #A9A9A9; color: white; }
+
+        /* Analytics Container */
+        .analytics-container {
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #chart-container {
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        .summary-item {
+            text-align: left;
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+		/* Score Container */
+.score-container {
+    text-align: center;
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
+        .restart-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            background-color: #c82333;
+        }
+
+        .custom-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .save-next-btn {
+            background-color: #28a745;
+        }
+
+        .save-next-btn:hover {
+            background-color: #218838;
+        }
+
+        .skip-btn {
+            background-color: #ffc107;
+        }
+
+        .skip-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .submit-section-btn {
+            background-color: #dc3545;
+        }
+
+        .submit-section-btn:hover {
+            background-color: #c82333;
+        }
+		.summary-item {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.summary-item.correct {
+    border-left: 5px solid #28a745;
+}
+
+.summary-item.incorrect {
+    border-left: 5px solid #dc3545;
+}
+
+.summary-item.skipped {
+    border-left: 5px solid #ffc107;
+}
+
+#summary-container .summary-item h3 {
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="quiz-title">Daily Current Affairs </h1>
+        <span id="user-name"></span>
+        <span class="timer" id="timer">06:00</span>
+    </div>
+
+    <div class="instructions" id="instructions">
+        <div class="instruction-box">
+            <h2>Instructions:</h2>
+            <ul>
+                <li>Please read all instructions carefully before starting the quiz.</li>
+                <li>The quiz contains multiple-choice questions with five options each.</li>
+                <li>You can navigate between questions using the navigation pane on the right.</li>
+				<li>Total questions 13 and total time of 06 minutes will be provided</li>
+				<li>Quiz submit after 13 minutes</li>
+                <li>Colors indicate the status of each question:
+                    <span class="color-box violet" style="background-color: blueviolet; border-radius: 50%; color: white; display: inline-block; height: 20px; width: 20px;"></span> Answered,
+                    <span class="color-box maroon" style="background-color: maroon; border-radius: 50%; color: white; display: inline-block; height: 20px; width: 20px;"></span> Not Answered,
+                    <span class="color-box blue" style="background-color: dodgerblue; border-radius: 50%; color: white; display: inline-block; height: 20px; width: 20px;"></span> Skipped,
+                    <span class="color-box grey" style="background-color: darkgrey; border-radius: 50%; color: white; display: inline-block; height: 20px; width: 20px;"></span> Not Viewed.
+                </li>
+            </ul>
+            <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+        </div>
+    </div>
+
+    <div id="quiz-container" class="quiz-container">
+        <div id="question-container" class="question-container">
+            <!-- Question content will be inserted here -->
+        </div>
+        <div class="navigation-pane">
+            <h3>Question Navigation</h3>
+            <div id="nav-buttons" class="nav-buttons">
+                <!-- Navigation buttons will be inserted here -->
+            </div>
+            <button class="submit-btn" onclick="submitQuiz()">Submit</button>
+        </div>
+    </div>
+
+    <div class="analytics-container" id="analytics-container">
+    <h2>Quiz Summary</h2>
+    
+    <!-- Score Container -->
+    <div class="score-container" id="score-container">
+        <h3>Total Score: <span id="total-score"></span> / <span id="total-questions"></span></h3>
+    </div>
+    
+    <div id="chart-container">
+        <canvas id="result-chart"></canvas> <!-- Pie chart -->
+    </div>
+    <div class="navigation-pane">
+        <h3>Question Navigation</h3>
+        <div class="nav-buttons" id="analytics-nav-buttons">
+            <!-- Navigation buttons for analytics -->
+        </div>
+    </div>
+    <div id="summary-container">
+        <!-- Summary content will be inserted here -->
+    </div>
+    <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let questions =[
+  {
+    "question": "How much does the Bank of India (BoI) plan to raise through the issuance of infrastructure bonds?",
+    "options": [
+      "₹3,000 crore",
+      "₹10,000 crore",
+      "₹5,000 crore",
+      "₹7,500 crore",
+      "₹2,500 crore"
+    ],
+    "correct": 3,
+    "solution": "Bank of India (BoI) plans to raise ₹5,000 crore through the issuance of infrastructure bonds, aligning with the current soft interest rate trends."
+  },
+  {
+    "question": "What was the approximate transaction value processed through UPI on RuPay credit cards in the first seven months of FY25?",
+    "options": [
+      "₹50,000 crore",
+      "₹70,000 crore",
+      "₹63,825.8 crore",
+      "₹60,000 crore",
+      "₹65,000 crore"
+    ],
+    "correct": 3,
+    "solution": "In the first seven months of FY25, transactions worth ₹63,825.8 crore were processed through UPI on RuPay credit cards, nearly doubling compared to the same period in FY24."
+  },
+  {
+    "question": "Which city recorded the highest annual growth in the All-India House Price Index (HPI) in Q2 of FY 2024-25?",
+    "options": [
+      "Mumbai",
+      "Delhi",
+      "Chennai",
+      "Bengaluru",
+      "Hyderabad"
+    ],
+    "correct": 4,
+    "solution": "Bengaluru recorded the highest annual growth in the All-India House Price Index (HPI) at 8.8% in Q2 of FY 2024-25."
+  },
+  {
+    "question": "What percentage of active borrowers in India's microfinance sector are women?",
+    "options": [
+      "90%",
+      "95%",
+      "99%",
+      "85%",
+      "92%"
+    ],
+    "correct": 3,
+    "solution": "India’s microfinance sector has 8.67 crore active borrowers, 99% of whom are women."
+  },
+  {
+    "question": "When did the Directorate of Revenue Intelligence (DRI) celebrate its 67th Foundation Day?",
+    "options": [
+      "December 2, 2024",
+      "December 3, 2024",
+      "December 4, 2024",
+      "December 5, 2024",
+      "December 1, 2024"
+    ],
+    "correct": 3,
+    "solution": "The Directorate of Revenue Intelligence (DRI) celebrated its 67th Foundation Day on December 4, 2024, in New Delhi."
+  },
+  {
+    "question": "What is the main purpose of the Oilfields (Regulation and Development) Amendment Bill, 2024?",
+    "options": [
+      "To introduce stricter regulations for oil and gas exploration",
+      "To delink petroleum operations from mining operations and attract investment",
+      "To privatize all oilfields in India",
+      "To impose criminal penalties for non-compliance",
+      "To merge petroleum operations with mining operations"
+    ],
+    "correct": 2,
+    "solution": "The primary purpose of the Oilfields (Regulation and Development) Amendment Bill, 2024, is to amend the existing law to delink petroleum operations from mining operations and attract investment in the sector."
+  },
+  {
+    "question": "Which of the following is **not** a provision introduced by the Oilfields (Regulation and Development) Amendment Bill, 2024?",
+    "options": [
+      "Decriminalisation of certain offences",
+      "Inclusion of penalties and an adjudicating authority",
+      "Introduction of petroleum leases",
+      "Mandatory foreign partnerships for oil exploration",
+      "Establishment of an appellate mechanism"
+    ],
+    "correct": 4,
+    "solution": "The Bill introduces provisions like decriminalisation of offences, penalties, adjudication mechanisms, and petroleum leases. However, it does not mandate foreign partnerships for oil exploration."
+  },
+  {
+    "question": "When was the Oilfields (Regulation and Development) Amendment Bill, 2024, passed in the Rajya Sabha?",
+    "options": [
+      "December 2, 2024",
+      "December 3, 2024",
+      "December 4, 2024",
+      "December 5, 2024",
+      "December 6, 2024"
+    ],
+    "correct": 2,
+    "solution": "The Rajya Sabha passed the Oilfields (Regulation and Development) Amendment Bill, 2024, on December 3, 2024."
+  },
+  {
+    "question": "What is the primary objective of the PM Surya Ghar Muft Bijli Yojana?",
+    "options": [
+      "To reduce electricity prices nationwide",
+      "To achieve 1 crore rooftop solar installations in the residential sector by FY27",
+      "To distribute free solar panels to all citizens",
+      "To promote solar energy exports from India",
+      "To make all government buildings solar-powered"
+    ],
+    "correct": 2,
+    "solution": "The PM Surya Ghar Muft Bijli Yojana aims to achieve 1 crore rooftop solar installations in the residential sector by FY27, promoting renewable energy adoption in households."
+  },
+  {
+    "question": "What is the budget allocation for the PM Surya Ghar Muft Bijli Yojana?",
+    "options": [
+      "Rs 50,000 crore",
+      "Rs 75,021 crore",
+      "Rs 1 lakh crore",
+      "Rs 60,000 crore",
+      "Rs 80,000 crore"
+    ],
+    "correct": 2,
+    "solution": "The budget allocation for the PM Surya Ghar Muft Bijli Yojana is Rs 75,021 crore."
+  },
+  {
+    "question": "Which of the following is **not** a provision of the Banking Laws (Amendment) Bill, 2024?",
+    "options": [
+      "Allowing up to four nominees for deposits and lockers",
+      "Changing the statutory reporting timeline to the last day of the reporting period",
+      "Streamlining the settlement of unclaimed deposits",
+      "Mandating free insurance for depositors",
+      "Introducing successive nominations for continuity"
+    ],
+    "correct": 4,
+    "solution": "The Banking Laws (Amendment) Bill, 2024, includes provisions like multiple nominations, revised reporting timelines, and streamlined unclaimed deposit settlements. However, it does not mandate free insurance for depositors."
+  },
+  {
+    "question": "As per the Banking Laws (Amendment) Bill, 2024, what is the deadline for submitting reports for the 15th of a month?",
+    "options": [
+      "15th of the month",
+      "18th of the month",
+      "20th of the month",
+      "25th of the month",
+      "End of the month"
+    ],
+    "correct": 3,
+    "solution": "According to the new timeline in the Banking Laws (Amendment) Bill, 2024, reports for the 15th of a month must be submitted by the 20th."
+  },
+  {
+    "question": "What is the estimated value of unclaimed deposits currently in the banking sector, as addressed in the Banking Laws (Amendment) Bill, 2024?",
+    "options": [
+      "Rs 50,000 crore",
+      "Rs 78,000 crore",
+      "Rs 1 lakh crore",
+      "Rs 90,000 crore",
+      "Rs 1.5 lakh crore"
+    ],
+    "correct": 2,
+    "solution": "The Banking Laws (Amendment) Bill, 2024, aims to streamline the settlement of unclaimed deposits, which are currently valued at Rs 78,000 crore."
+  },
+  {
+    "question": "What warning did United States President-elect Donald Trump issue to nine nations regarding their currency plans?",
+    "options": [
+      "Sanctions on their governments",
+      "100% tariffs on their exports to the US",
+      "Withdrawal of military aid",
+      "Ban on their banking systems operating in the US",
+      "Reduction of trade agreements"
+    ],
+    "correct": 2,
+    "solution": "Donald Trump warned of imposing 100% tariffs on nine nations if they attempt to create a currency to rival the US dollar."
+  },
+  {
+    "question": "Who has been appointed as a Judge of the Supreme Court of India, effective from the date of assuming office?",
+    "options": [
+      "Justice D. Y. Chandrachud",
+      "Justice Manmohan",
+      "Justice Hima Kohli",
+      "Justice Ranjan Gogoi",
+      "Justice S. A. Bobde"
+    ],
+    "correct": 2,
+    "solution": "Justice Manmohan, Chief Justice of the Delhi High Court, has been appointed as a Judge of the Supreme Court of India."
+  },
+  {
+    "question": "Who is the newly appointed MD and CEO of NSDL?",
+    "options": [
+      "Ajay Tyagi",
+      "Vijay Chandok",
+      "Deepak Parekh",
+      "Shaktikanta Das",
+      "Uday Kotak"
+    ],
+    "correct": 2,
+    "solution": "Vijay Chandok, a financial market veteran, has been appointed as the MD and CEO of NSDL."
+  },
+  {
+    "question": "What is the total worth of capital acquisition proposals approved by the Defence Acquisition Council on December 3, 2024?",
+    "options": [
+      "₹15,000 Crores",
+      "₹18,500 Crores",
+      "₹20,000 Crores",
+      "₹21,772 Crores",
+      "₹25,000 Crores"
+    ],
+    "correct": 4,
+    "solution": "The Defence Acquisition Council approved five capital acquisition proposals worth ₹21,772 Crores to enhance India's defence preparedness."
+  },
+  {
+    "question": "Which award did BHEL win in 2024 for business excellence?",
+    "options": [
+      "CII-EXIM Bank Award",
+      "Golden Peacock Award",
+      "Rajiv Gandhi Quality Award",
+      "Deming Prize",
+      "Global Performance Excellence Award"
+    ],
+    "correct": 1,
+    "solution": "BHEL won the CII-EXIM Bank Award for Business Excellence – 2024."
+  },
+  {
+    "question": "How many individuals and institutions received the National Awards for Empowering Persons with Disabilities 2024?",
+    "options": [
+      "25",
+      "30",
+      "33",
+      "35",
+      "40"
+    ],
+    "correct": 3,
+    "solution": "The President of India conferred the National Awards for Empowering Persons with Disabilities to 33 exemplary individuals and institutions in 2024."
+  },
+  {
+    "question": "Which two leaders met in Beijing to sign a nine-point MoU to enhance bilateral cooperation?",
+    "options": [
+      "Narendra Modi and Xi Jinping",
+      "K P Sharma Oli and Xi Jinping",
+      "Sheikh Hasina and Xi Jinping",
+      "Pushpa Kamal Dahal and Xi Jinping",
+      "Imran Khan and Xi Jinping"
+    ],
+    "correct": 2,
+    "solution": "Nepal’s Prime Minister K P Sharma Oli and Chinese President Xi Jinping met in Beijing and signed a nine-point MoU for enhanced bilateral cooperation."
+  },
+  {
+    "question": "Which Indian Institutes of Technology (IITs) has Hyundai partnered with for research in battery technology?",
+    "options": [
+      "IIT Bombay, IIT Madras, and IIT Kanpur",
+      "IIT Delhi, IIT Madras, and IIT Kharagpur",
+      "IIT Bombay, IIT Delhi, and IIT Roorkee",
+      "IIT Madras, IIT Kanpur, and IIT Kharagpur",
+      "IIT Kanpur, IIT Bombay, and IIT Roorkee"
+    ],
+    "correct": 1,
+    "solution": "Hyundai Motor Group announced a strategic partnership with IIT Bombay, IIT Madras, and IIT Kanpur to establish a research framework for battery technology and electrification."
+  },
+  {
+    "question": "What is the significance of World Wildlife Conservation Day, observed annually on December 4?",
+    "options": [
+      "Promoting renewable energy usage",
+      "Spreading awareness about preserving endangered flora and fauna",
+      "Encouraging sustainable urban development",
+      "Highlighting the dangers of deforestation",
+      "Celebrating advancements in wildlife photography"
+    ],
+    "correct": 2,
+    "solution": "World Wildlife Conservation Day is observed on December 4 to spread awareness about preserving Earth’s endangered flora and fauna."
+  },
+  {
+    "question": "When is World Soil Day celebrated annually?",
+    "options": [
+      "December 3",
+      "December 4",
+      "December 5",
+      "December 6",
+      "December 7"
+    ],
+    "correct": 3,
+    "solution": "World Soil Day is celebrated annually on December 5 to focus on the importance of soil health for sustainable development."
+  }
+]
+      
+
+  ;
+
+        // Current quiz state
+        let currentQuestionIndex = 0;
+        let selectedAnswers = [];
+        let score = 0;
+        let skippedQuestions = [];
+		 let timerInterval;
+
+        // Countdown timer
+        let totalTime = 06 * 60; // 16 minutes in seconds
+        function startTimer() {
+            let timerElement = document.getElementById('timer');
+
+            timerInterval = setInterval(() => {
+                totalTime--;
+
+                let minutes = Math.floor(totalTime / 60);
+                let seconds = totalTime % 60;
+                timerElement.innerHTML = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+                if (totalTime <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                    alert('Time Up! The quiz has been submitted.');
+                }
+            }, 1000);
+        }
+
+
+        // Start the quiz
+        function startQuiz() {
+            document.getElementById('instructions').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'flex';
+            showQuestion(0); // Start with the first question
+            createNavigationButtons(); // Create navigation buttons
+			startTimer();
+        }
+
+        // Show a specific question
+        function showQuestion(index) {
+            const questionContainer = document.getElementById('question-container');
+            const question = questions[index];
+            let html = `<h3>Question ${index + 1}:</h3><p>${question.question}</p><ul>`;
+            for (let i = 0; i < question.options.length; i++) {
+                html += `<li><input type="radio" name="option" value="${i}"> ${question.options[i]}</li>`;
+            }
+            html += `</ul>`;
+            html += `<button class="custom-btn save-next-btn" onclick="saveAnswer(${index})">Save & Next</button>`;
+            html += `<button class="custom-btn skip-btn" onclick="skipQuestion(${index})">Skip</button>`;
+            if (index === questions.length - 1) {
+                html += `<button class="custom-btn submit-section-btn" onclick="submitQuiz()">Submit Quiz</button>`;
+            }
+            questionContainer.innerHTML = html;
+        }
+
+        // Save the selected answer
+        function saveAnswer(index) {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (selectedOption) {
+                selectedAnswers[index] = parseInt(selectedOption.value);
+                updateNavButton(index, 'violet'); // Mark the question as answered
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion(currentQuestionIndex);
+                } else {
+                    submitQuiz();
+                }
+            } else {
+                alert('Please select an option!');
+            }
+        }
+
+        // Skip the current question
+        function skipQuestion(index) {
+            skippedQuestions.push(index);
+            updateNavButton(index, 'blue'); // Mark the question as skipped
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(currentQuestionIndex);
+            } else {
+                submitQuiz();
+            }
+        }
+
+        function submitQuiz() {
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('analytics-container').style.display = 'block';
+
+    // Variables to store count of correct, incorrect, and skipped answers
+    let correctCount = 0;
+    let wrongCount = 0;
+    let skippedCount = 0;
+    let notAnsweredCount = 0;
+    let totalQuestions = questions.length;
+    
+    // Calculate the score
+    score = 0; // Reset score
+    for (let i = 0; i < totalQuestions; i++) {
+        if (selectedAnswers[i] === questions[i].correct) {
+            correctCount++;
+            score += 1; // +1 for correct
+        } else if (selectedAnswers[i] !== undefined) {
+            wrongCount++;
+            score -= 0.25; // -0.25 for incorrect
+        } else {
+            skippedCount++;
+        }
+    }
+ // Display score
+    document.getElementById('total-score').textContent = score; // Display the score
+    document.getElementById('total-questions').textContent = questions.length; // Display total questions
+    // Calculate accuracy
+    let answeredCount = correctCount + wrongCount;
+    let accuracy = (correctCount / answeredCount) * 100 || 0;
+
+    // Display results in a more aesthetic way
+    showResults(correctCount, wrongCount, skippedCount, score, accuracy);
+    
+    // Show pie chart
+    showPieChart(correctCount, wrongCount, skippedCount);
+
+    // Show detailed summary
+    showSummary();
+}
+
+// Function to display results in a nice format
+function showResults(correctCount, wrongCount, skippedCount, score, accuracy) {
+    const summaryContainer = document.getElementById('summary-container');
+    
+    summaryContainer.innerHTML = `
+        <div class="summary-item">
+            <h3>Quiz Summary</h3>
+            <p><strong>Total Questions:</strong> ${questions.length}</p>
+            <p><strong>Correct Answers:</strong> ${correctCount}</p>
+            <p><strong>Wrong Answers:</strong> ${wrongCount}</p>
+            <p><strong>Skipped Questions:</strong> ${skippedCount}</p>
+            <p><strong>Final Score:</strong> ${score.toFixed(2)}</p>
+            <p><strong>Accuracy:</strong> ${accuracy.toFixed(2)}%</p>
+        </div>
+    `;
+}
+
+// Show summary of each question with answers
+function showSummary() {
+    const summaryContainer = document.getElementById('summary-container');
+    
+    for (let i = 0; i < questions.length; i++) {
+        const question = questions[i];
+        const isCorrect = selectedAnswers[i] === question.correct;
+        let resultClass = isCorrect ? 'correct' : selectedAnswers[i] !== undefined ? 'incorrect' : 'skipped';
+        let userAnswer = selectedAnswers[i] !== undefined ? question.options[selectedAnswers[i]] : 'Skipped';
+        let correctAnswer = question.options[question.correct];
+
+        summaryContainer.innerHTML += `
+            <div class="summary-item ${resultClass}">
+                <h4>Question ${i + 1}</h4>
+                <p>${question.question}</p>
+                <p><strong>Your Answer:</strong> ${userAnswer}</p>
+                <p><strong>Correct Answer:</strong> ${correctAnswer}</p>
+                <p><strong>Result:</strong> ${isCorrect ? 'Correct' : selectedAnswers[i] !== undefined ? 'Incorrect' : 'Skipped'}</p>
+                <p><strong>Solution:</strong> ${question.solution}</p>
+            </div>
+        `;
+    }
+}
+
+// Show pie chart of results
+function showPieChart(correct, wrong, skipped) {
+    const ctx = document.getElementById('result-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Correct', 'Incorrect', 'Skipped'],
+            datasets: [{
+                data: [correct, wrong, skipped],
+                backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+}
+
+       
+
+        // Restart the quiz
+        function restartQuiz() {
+            selectedAnswers = [];
+            score = 0;
+            skippedQuestions = [];
+            currentQuestionIndex = 0;
+            document.getElementById('analytics-container').style.display = 'none';
+            document.getElementById('instructions').style.display = 'block';
+        }
+
+        // Create navigation buttons dynamically
+        function createNavigationButtons() {
+            const navButtonsContainer = document.getElementById('nav-buttons');
+            navButtonsContainer.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                let button = document.createElement('button');
+                button.innerHTML = i + 1;
+                button.classList.add('grey'); // Default color is grey
+                button.onclick = function() { showQuestion(i); };
+                navButtonsContainer.appendChild(button);
+            }
+        }
+
+        // Update navigation button color based on status
+        function updateNavButton(index, colorClass) {
+            const navButtons = document.querySelectorAll('.nav-buttons button');
+            navButtons[index].className = ''; // Remove previous class
+            navButtons[index].classList.add(colorClass);
+        }
+
+    </script>
+</body>
+</html>
